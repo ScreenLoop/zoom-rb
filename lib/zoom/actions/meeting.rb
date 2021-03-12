@@ -92,6 +92,13 @@ module Zoom
         params.require(:meeting_id)
         Utils.parse_response self.class.get("/meetings/#{params[:meeting_id]}/invitation", headers: request_headers)
       end
+
+      # Update in-meeting recording controls on Zoom via meeting ID.
+      def live_meeting_events_update(*args)
+        params = Zoom::Params.new(Utils.extract_options!(args))
+        params.require(:meeting_id)
+        Utils.parse_response self.class.patch("/live_meetings/#{params[:meeting_id]}/events", body: params.except(:meeting_id).to_json, headers: request_headers)
+      end
     end
   end
 end
