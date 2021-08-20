@@ -103,6 +103,10 @@ module Zoom
         Utils.parse_response self.class.get("/users/#{params[:user_id]}/token", query: params.except(:user_id), headers: request_headers)
       end
 
+      def me_user_token
+        Utils.parse_response self.class.get("/users/me/token", headers: request_headers)
+      end
+
       def user_permissions(*args)
         params = Zoom::Params.new(Utils.extract_options!(args))
         params.require(:user_id)
