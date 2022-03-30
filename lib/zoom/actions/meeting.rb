@@ -73,6 +73,13 @@ module Zoom
         Utils.parse_response self.class.get("/past_meetings/#{params[:meeting_uuid]}", headers: request_headers)
       end
 
+      # Retrieve past meeting instances
+      def past_meeting_instances(*args)
+        params = Zoom::Params.new(Utils.extract_options!(args))
+        params.require(:meeting_id)
+        Utils.parse_response self.class.get("/past_meetings/#{params[:meeting_id]}/instances", headers: request_headers)
+      end
+
       # Retrieve ended meeting participants
       def past_meeting_participants(*args)
         params = Zoom::Params.new(Utils.extract_options!(args))
