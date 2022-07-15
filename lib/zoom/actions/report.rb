@@ -25,6 +25,12 @@ module Zoom
         params.require(:id).permit(%i[page_size next_page_token])
         Utils.parse_response self.class.get("/report/webinars/#{params[:id]}/participants", query: params.except(:id), headers: request_headers)
       end
+
+      def operation_logs_report(*args)
+        params = Zoom::Params.new(Utils.extract_options!(args))
+        params.require(%i[from to]).permit(%i[page_size next_page_token category_type])
+        Utils.parse_response self.class.get('/report/operationlogs', query: params, headers: request_headers)
+      end
     end
   end
 end
